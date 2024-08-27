@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+  minio:
+    image: bitnami/minio
+    container_name: minio
+    volumes:
+      - ./minio:/bitnami/minio/data
+    ports:
+      - 9000:9000
+      - 9001:9001
+    networks:
+      - node-streaming
+
+  postgresql:
+    image: bitnami/postgresql
+    container_name: postgresql
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=postgres
+    volumes:
+      - ./postgresql:/bitnami/postgresql
+    ports:
+      - 5432:5432
+    networks:
+      - node-streaming
+
+  media-transfer:
+    container_name: media-transfer
+    build: ./media-transfer
+    port:
+      - 5333:5333
+    networks:
+      - node-streaming
+    depends_on:
+      - minio
+
+  rtmp-node:
+    container_name: rtmp-node
+    build: ./rtmp-node
+    ports:
+      - 8080:8080
+      - 1935:1935
+    networks:
+      - node-streaming
+    depends_on:
+      - media-transfer
+      - postgresql
+
+networks:
+  node-streaming:
+    driver: default

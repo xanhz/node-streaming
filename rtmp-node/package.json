@@ -1,0 +1,29 @@
+{
+  "name": "rtmp-node",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "description": "A Node.js implementation of RTMP Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": {
+    "name": "Dat Hoang",
+    "url": "https://www.linkedin.com/in/datht0107"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "lodash": "^4.17.21",
+    "pino": "^8.19.0",
+    "pino-pretty": "^10.3.1",
+    "prisma": "^5.11.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/lodash": "^4.14.202",
+    "@types/node": "^20.11.28"
+  }
+}

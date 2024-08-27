@@ -1,0 +1,29 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+enum StreamStatus {
+    Pending
+    Publishing
+    Closed
+}
+
+model Stream {
+    id           Int          @id @default(autoincrement())
+    title        String
+    name         String
+    token        String
+    server_url   String
+    manifest_url String?
+    status       StreamStatus @default(Pending)
+    created_at   DateTime     @default(now()) @db.Timestamptz(3)
+    updated_at   DateTime     @updatedAt @db.Timestamptz(3)
+
+    @@unique([name])
+    @@map("streams")
+}
